@@ -1,296 +1,378 @@
-<!-- ...existing code... -->
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Weather — Styled</title>
+  <title>Weather — Warm Phone UI</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;600;800&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg-sky: linear-gradient(180deg,#bfe9ff 0%, #8fc7ff 30%, #6aa6e6 60%, #3b66b0 100%);
-      --glass: rgba(255,255,255,0.06);
-      --card-blue: rgba(24,119,206,0.95);
-      --white-60: rgba(255,255,255,0.85);
+      --accent:#ff8a00;
+      --accent-2:#ffd07a;
+      --phone-bg:#ffffff;
+      --glass: rgba(255,255,255,0.85);
+      --muted:#6b5a4a;
     }
-
-    html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;}
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial;}
     body{
-      background: url('https://images.unsplash.com/photo-1501973801540-537f08ccae7b?q=80&w=1920&auto=format&fit=crop&ixlib=rb-4.0.3&s=7b8f5c7c6a0c2a7a2b1c9e6a1b4f6f2b') center/cover no-repeat, var(--bg-sky);
       display:flex;
       align-items:center;
       justify-content:center;
-      padding:48px;
+      padding:36px;
+      background:linear-gradient(180deg,#fdeedf 0%, #f5f2ee 60%);
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
-      background-attachment: fixed;
-      color:var(--white-60);
+      color:#222;
     }
 
-    /* phone mock */
+    /* Center phone mock */
     .phone {
-      width: 420px;
+      width:360px;
       max-width:92vw;
       aspect-ratio: 9/19;
-      background: linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0.35));
-      border-radius: 36px;
-      box-shadow: 0 30px 80px rgba(10,20,40,0.5);
-      border: 8px solid rgba(0,0,0,0.45);
+      background: linear-gradient(180deg, #fff, #f8f6f5);
+      border-radius:34px;
+      padding:12px;
+      box-shadow: 0 22px 60px rgba(12,18,30,0.12), inset 0 2px 0 rgba(255,255,255,0.6);
+      border: 10px solid rgba(0,0,0,0.02);
       position:relative;
       overflow:hidden;
-      display:flex;
-      align-items:flex-start;
-      justify-content:center;
-      padding:28px 20px;
-      box-sizing:border-box;
     }
 
-    /* subtle edge bezel */
-    .phone::before{
-      content:'';
-      position:absolute;inset:0;border-radius:36px;padding:1px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.25));
-      -webkit-mask: linear-gradient(#fff 0 0);
-      pointer-events:none;
-    }
-
-    /* lens flare / sun */
-    .sun {
-      position:absolute;
-      top:36px;
-      left:44%;
-      width:120px;height:120px;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.95) 0 8%, rgba(255,255,255,0.5) 9% 16%, rgba(255,255,255,0.05) 60%, transparent 100%);
-      filter: blur(6px);
-      transform:translateX(-50%);
-      mix-blend-mode:screen;
-      pointer-events:none;
-    }
-
-    /* content column */
+    /* inner screen area */
     .screen {
       width:100%;
-      max-width:360px;
-      text-align:center;
-      margin-top:36px;
-      z-index:2;
-    }
-
-    .top-bar {
-      display:flex;
-      justify-content:space-between;
-      color:rgba(255,255,255,0.9);
-      font-weight:500;
-      font-size:15px;
-      padding:6px 10px;
-      opacity:0.95;
-    }
-
-    .city {
-      font-size:28px;
-      margin-top:46px;
-      color:#fff;
-      font-weight:600;
-      text-shadow: 0 8px 20px rgba(10,20,40,0.6);
-    }
-
-    .temp {
-      font-size:110px;
-      line-height:0.85;
-      font-weight:300;
-      color: #fff;
-      margin:6px 0 0 0;
-      text-shadow: 0 14px 30px rgba(10,20,40,0.6);
-      letter-spacing: -2px;
-    }
-    .temp .deg { font-size:42px; vertical-align:top; margin-left:6px; opacity:0.95; }
-
-    .desc {
-      color:rgba(255,255,255,0.9);
-      font-size:15px;
-      margin-top:8px;
-      opacity:0.95;
-    }
-
-    .hi-lo{
-      color:rgba(255,255,255,0.85);
-      margin-top:6px;
-      font-size:13px;
-      opacity:0.9;
-    }
-
-    /* hourly card */
-    .hour-card {
-      width:88%;
-      margin:28px auto 0;
-      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.04));
-      border-radius:18px;
-      padding:18px;
-      box-sizing:border-box;
-      backdrop-filter: blur(8px) saturate(130%);
-      border: 1px solid rgba(255,255,255,0.06);
-      box-shadow: 0 10px 30px rgba(10,20,40,0.35);
-      color: #fff;
-      text-align:left;
+      height:100%;
+      border-radius:22px;
+      overflow:hidden;
+      background: linear-gradient(180deg, rgba(255,140,0,0.98) 0%, rgba(255,200,120,0.85) 50%, rgba(255,180,90,0.6) 100%);
+      box-shadow: inset 0 -30px 60px rgba(255,140,0,0.07);
       position:relative;
+      display:flex;
+      flex-direction:column;
+      align-items:stretch;
     }
 
-    .hour-card .hint {
+    /* top header */
+    .header {
+      padding:18px 18px 8px 18px;
+      color: white;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .header .left { font-weight:600; font-size:16px; opacity:0.95; }
+    .header .right { display:flex; gap:10px; align-items:center; font-size:12px; opacity:0.95; }
+
+    /* large temperature block */
+    .big {
+      padding:8px 22px 10px 22px;
+      text-align:left;
+      color: #fff;
+      flex:0 0 auto;
+    }
+    .city {
+      font-size:20px;
+      font-weight:700;
+      text-shadow: 0 6px 20px rgba(0,0,0,0.18);
+      margin-bottom:6px;
+      opacity:0.98;
+    }
+    .temp {
+      font-size:72px;
+      font-weight:300;
+      line-height:0.9;
+      display:flex;
+      align-items:flex-start;
+      gap:8px;
+      text-shadow: 0 12px 28px rgba(0,0,0,0.18);
+    }
+    .temp .deg { font-size:28px; margin-top:8px; font-weight:600; }
+
+    .meta {
       font-size:14px;
-      margin-bottom:12px;
-      color:rgba(255,255,255,0.92);
-      font-weight:600;
+      opacity:0.95;
+      margin-top:8px;
     }
 
+    /* decorative sun */
+    .sun {
+      position:absolute;
+      right:28px;
+      top:18px;
+      width:92px;height:92px;
+      border-radius:50%;
+      background: radial-gradient(circle at 35% 35%, #fff7d9 0%, rgba(255,255,255,0.35) 12%, rgba(255,255,255,0.06) 35%, transparent 100%);
+      filter: blur(6px);
+      mix-blend-mode:screen;
+    }
+
+    /* rounded content card */
+    .card {
+      background: white;
+      margin:14px;
+      border-radius:18px;
+      box-shadow: 0 10px 30px rgba(20,30,40,0.08);
+      padding:14px;
+      flex:1 1 auto;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+
+    .card .row {
+      display:flex;
+      gap:12px;
+      align-items:center;
+      justify-content:space-between;
+    }
+
+    .summary {
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+    .weather-thumb {
+      width:64px;height:64px;border-radius:12px;background:linear-gradient(180deg,var(--accent) 0%, var(--accent-2) 100%);display:flex;align-items:center;justify-content:center;color:white;font-size:28px;box-shadow: 0 6px 18px rgba(255,130,0,0.25);
+    }
+
+    .summary .info { display:flex;flex-direction:column; gap:6px; }
+    .summary .info .val { font-weight:700; color:#3b2a1b; }
+    .summary .info .sub { font-size:12px; color:var(--muted); }
+
+    /* small hourly tiles */
     .hours {
       display:flex;
-      gap:14px;
-      overflow-x:auto;
+      gap:8px;
+      align-items:center;
+      overflow:auto;
       padding-bottom:6px;
-      -webkit-overflow-scrolling:touch;
     }
     .hour {
-      min-width:56px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
-      border-radius:12px;
-      padding:10px 8px;
+      background:linear-gradient(180deg, #fff, #fff);
+      min-width:62px;
+      border-radius:10px;
+      padding:8px;
       text-align:center;
-      color:#fff;
-      font-size:13px;
-      box-shadow: inset 0 -6px 12px rgba(0,0,0,0.08);
+      box-shadow: 0 4px 10px rgba(20,30,40,0.06);
+      font-size:12px;
+      color:#624b37;
     }
-    .hour .time { font-weight:700; opacity:0.95; margin-bottom:6px; display:block; font-size:13px;}
-    .hour .icon { font-size:18px; margin-bottom:6px; display:block; }
-    .hour .t { font-weight:700; font-size:15px; }
+    .hour .time { font-weight:700; margin-bottom:6px; font-size:12px; }
+    .hour .icon { font-size:16px; margin-bottom:6px; }
+    .hour .t { font-weight:700; font-size:13px; }
 
-    /* input row (hidden in final look but available) */
-    .controls {
-      display:flex;
-      gap:8px;
-      justify-content:center;
-      margin-top:18px;
-    }
-    input[type="text"]{
-      border-radius:999px;
-      padding:10px 14px;
-      border:none;
-      background:rgba(255,255,255,0.06);
-      color:#fff;
-      outline: none;
-      width:180px;
-      box-shadow: inset 0 -2px 6px rgba(0,0,0,0.2);
-    }
-    button.cta {
-      padding:10px 14px;border-radius:999px;border:none;background:#fff;color:#0c2340;font-weight:700;cursor:pointer;
-    }
+    /* small action row */
+    .actions { display:flex; gap:8px; align-items:center; justify-content:space-between; }
+    .chip { background:#fff; padding:8px 12px; border-radius:999px; font-size:12px; color:#7a5a40; box-shadow: 0 6px 12px rgba(20,30,40,0.04); }
 
-    /* small responsiveness */
+    /* sparkline chart area */
+    .chart-wrap { padding:8px; background:linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.98)); border-radius:12px; box-shadow: inset 0 1px 0 rgba(255,255,255,0.8); }
+
+    /* small footer icons */
+    .footer { display:flex; gap:18px; justify-content:center; align-items:center; padding-bottom:8px; color: #b07a3a; }
+
     @media (max-width:420px){
-      .temp { font-size:88px; }
-      .city{font-size:22px}
-      .phone{padding:20px}
-      .hour-card{width:92%}
+      .temp{font-size:56px}
+      .city{font-size:18px}
     }
   </style>
 </head>
 <body>
-  <div class="phone" role="region" aria-label="weather phone mockup">
-    <div class="sun" aria-hidden="true"></div>
+  <div class="phone" aria-label="weather phone mockup">
+    <div class="screen" role="application" aria-live="polite">
+      <div class="sun" aria-hidden="true"></div>
 
-    <div class="screen">
-      <div class="top-bar">
-        <div>Cancel</div>
-        <div style="font-weight:800">Add</div>
+      <div class="header">
+        <div class="left">当前位置</div>
+        <div class="right">
+          <div class="small">Air 20m</div>
+          <div class="small">UV 1m</div>
+        </div>
       </div>
 
-      <div id="content">
+      <div class="big">
         <div class="city" id="cityName">—</div>
         <div class="temp" id="temp">—<span class="deg">°</span></div>
-        <div class="desc" id="desc">Enter a city below</div>
-        <div class="hi-lo" id="hilo"></div>
+        <div class="meta" id="desc">—</div>
+      </div>
 
-        <div class="hour-card" aria-live="polite">
-          <div class="hint">Sunny conditions will continue all day.</div>
-          <div class="hours" id="hours">
-            <!-- hourly items will be injected here -->
-            <div class="hour"><span class="time">Now</span><span class="icon">☀️</span><span class="t" id="nowTemp">—°</span></div>
+      <div class="card" aria-label="details card">
+        <div class="row summary">
+          <div class="weather-thumb" id="thumb">☀️</div>
+          <div class="info">
+            <div class="val" id="hiLo">H: —  L: —</div>
+            <div class="sub" id="note">Most of the day will be sunny.</div>
+          </div>
+          <div style="margin-left:auto;text-align:right">
+            <div style="font-weight:700;color:#d46a00" id="feel">Feels 27°</div>
+            <div style="font-size:12px;color:var(--muted)">Wind 3 m/s</div>
           </div>
         </div>
 
-        <div class="controls">
-          <input id="cityInput" type="text" placeholder="Enter city name" aria-label="city name">
-          <button class="cta" id="getBtn">Get</button>
+        <div class="chart-wrap" aria-hidden="false">
+          <!-- simple sparkline drawn by JS -->
+          <svg id="spark" width="100%" height="90" viewBox="0 0 360 90" preserveAspectRatio="none"></svg>
+        </div>
+
+        <div style="margin-top:6px">
+          <div style="font-size:13px;color:var(--muted);margin-bottom:8px">Today</div>
+          <div class="hours" id="hours">
+            <!-- hourly tiles injected by JS -->
+          </div>
+        </div>
+
+        <div class="actions" style="margin-top:8px">
+          <div class="chip">Precip</div>
+          <div class="chip">Humidity</div>
+          <div class="chip">Sunrise</div>
+        </div>
+
+        <div class="footer" style="margin-top:8px">
+          <div>🏠</div>
+          <div>📍</div>
+          <div>Graph</div>
         </div>
       </div>
     </div>
   </div>
 
   <script>
-    // Replace with your OpenWeatherMap API key
+    // YOUR_API_KEY -> replace to enable live fetch; if left as placeholder this file uses demo data by default.
     const apiKey = "YOUR_API_KEY";
-    const getBtn = document.getElementById('getBtn');
-    const cityInput = document.getElementById('cityInput');
-    const cityName = document.getElementById('cityName');
-    const tempEl = document.getElementById('temp');
-    const descEl = document.getElementById('desc');
-    const hiloEl = document.getElementById('hilo');
-    const hoursEl = document.getElementById('hours');
-    const nowTemp = document.getElementById('nowTemp');
 
-    getBtn.addEventListener('click', () => fetchWeather(cityInput.value.trim()));
-    cityInput.addEventListener('keydown', (e) => { if(e.key === 'Enter') fetchWeather(cityInput.value.trim()); });
+    // demo data that matches the warm orange screenshot look
+    const demoData = {
+      city: "Sacramento",
+      temp: 26,
+      degSymbol: '°C',
+      desc: "Sunny",
+      hi: 30,
+      lo: 18,
+      feel: 27,
+      wind: "3 m/s",
+      icon: "☀️",
+      hourly: [
+        {t:"Now", temp:26, icon:"☀️"},
+        {t:"10", temp:29, icon:"☀️"},
+        {t:"11", temp:31, icon:"☀️"},
+        {t:"12", temp:33, icon:"☀️"},
+        {t:"13", temp:32, icon:"☀️"},
+        {t:"14", temp:30, icon:"⛅"}
+      ]
+    };
 
-    async function fetchWeather(city) {
-      if(!city) { cityName.textContent = 'Please enter a city'; return; }
-      cityName.textContent = 'Loading...';
-      try {
-        // Current weather (imperial: °F, change units if you prefer °C)
-        const cur = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&units=imperial&appid=${apiKey}`)
-                          .then(r => { if(!r.ok) throw r; return r.json(); });
+    const el = {
+      cityName: document.getElementById('cityName'),
+      temp: document.getElementById('temp'),
+      desc: document.getElementById('desc'),
+      hiLo: document.getElementById('hiLo'),
+      thumb: document.getElementById('thumb'),
+      feel: document.getElementById('feel'),
+      hours: document.getElementById('hours'),
+      spark: document.getElementById('spark'),
+      note: document.getElementById('note')
+    };
 
-        cityName.textContent = cur.name;
-        tempEl.innerHTML = Math.round(cur.main.temp) + '<span class="deg">°</span>';
-        descEl.textContent = cur.weather[0].description.replace(/\b\w/g, c => c.toUpperCase());
-        hiloEl.textContent = `H:${Math.round(cur.main.temp_max)}°  L:${Math.round(cur.main.temp_min)}°`;
-        nowTemp.textContent = Math.round(cur.main.temp) + '°';
-
-        // Hourly forecast (use forecast endpoint -> 3-hour chunks)
-        const f = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(city)}&units=imperial&appid=${apiKey}`)
-                        .then(r => r.json());
-
-        // Build simple hourly list (next 6 items)
-        const list = f.list ? f.list.slice(0, 6) : [];
-        hoursEl.innerHTML = '';
-        // add "Now" block
-        hoursEl.appendChild(hourNode('Now', '☀️', Math.round(cur.main.temp)));
-        list.forEach(item => {
-          const dt = new Date(item.dt * 1000);
-          const hrs = dt.getHours();
-          const timeLabel = (hrs % 12 === 0 ? 12 : hrs % 12) + (hrs < 12 ? ' AM' : ' PM');
-          const icon = mapIcon(item.weather[0].main);
-          hoursEl.appendChild(hourNode(timeLabel, icon, Math.round(item.main.temp)));
-        });
-
-      } catch (err) {
-        console.error(err);
-        cityName.textContent = 'City not found';
-        tempEl.innerHTML = '—<span class="deg">°</span>';
-        descEl.textContent = '';
-        hiloEl.textContent = '';
-        hoursEl.innerHTML = '<div class="hour"><span class="time">—</span><span class="icon">—</span><span class="t">—</span></div>';
-      }
+    function render(data){
+      el.cityName.textContent = data.city;
+      el.temp.innerHTML = `${data.temp}<span class="deg">${data.degSymbol || '°'}</span>`;
+      el.desc.textContent = data.desc;
+      el.hiLo.textContent = `H: ${data.hi}  L: ${data.lo}`;
+      el.thumb.textContent = data.icon;
+      el.feel.textContent = `Feels ${data.feel}°`;
+      el.note.textContent = `${data.desc} conditions will continue all day.`;
+      // hourly
+      el.hours.innerHTML = '';
+      data.hourly.forEach(h => {
+        const d = document.createElement('div');
+        d.className = 'hour';
+        d.innerHTML = `<div class="time">${h.t}</div><div class="icon">${h.icon}</div><div class="t">${h.temp}°</div>`;
+        el.hours.appendChild(d);
+      });
+      drawSparkline(data.hourly.map(h => h.temp));
     }
 
-    function hourNode(time, icon, temp){
-      const d = document.createElement('div');
-      d.className = 'hour';
-      d.innerHTML = `<span class="time">${time}</span><span class="icon">${icon}</span><span class="t">${temp}°</span>`;
-      return d;
+    function drawSparkline(values){
+      const svg = el.spark;
+      const w = 360, h = 90;
+      svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+      svg.innerHTML = '';
+      if(!values || values.length === 0) return;
+      // scale
+      const min = Math.min(...values) - 1;
+      const max = Math.max(...values) + 1;
+      const len = values.length;
+      const step = w / Math.max(1, len - 1);
+      const points = values.map((v,i) => {
+        const x = i * step;
+        const y = h - ((v - min) / (max - min)) * h;
+        return [x, y];
+      });
+      // path
+      const pathD = points.map((p,i) => `${i===0?'M':'L'} ${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join(' ');
+      const poly = document.createElementNS('http://www.w3.org/2000/svg','path');
+      poly.setAttribute('d', pathD);
+      poly.setAttribute('fill','none');
+      poly.setAttribute('stroke','#ff8a00');
+      poly.setAttribute('stroke-width','3');
+      poly.setAttribute('stroke-linecap','round');
+      poly.setAttribute('stroke-linejoin','round');
+      svg.appendChild(poly);
+      // area fill
+      const areaD = pathD + ` L ${w} ${h} L 0 ${h} Z`;
+      const area = document.createElementNS('http://www.w3.org/2000/svg','path');
+      area.setAttribute('d', areaD);
+      area.setAttribute('fill','rgba(255,140,0,0.12)');
+      svg.insertBefore(area, poly);
+    }
+
+    async function fetchAndRender(city){
+      if(!apiKey || apiKey === "YOUR_API_KEY"){
+        render(demoData);
+        return;
+      }
+      try {
+        const cur = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&units=metric&appid=${apiKey}`)
+                          .then(r=>{ if(!r.ok) throw r; return r.json();});
+        const cityName = cur.name || city;
+        const data = {
+          city: cityName,
+          temp: Math.round(cur.main.temp),
+          degSymbol: '°C',
+          desc: cur.weather?.[0]?.main || '',
+          hi: Math.round(cur.main.temp_max),
+          lo: Math.round(cur.main.temp_min),
+          feel: Math.round(cur.main.feels_like),
+          wind: `${cur.wind?.speed || 0} m/s`,
+          icon: mapIcon(cur.weather?.[0]?.main),
+          hourly: []
+        };
+        // get forecast
+        const f = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(city)}&units=metric&appid=${apiKey}`).then(r=>r.json());
+        const list = (f.list || []).slice(0,6);
+        if(list.length){
+          data.hourly = list.map((it,i)=>{
+            const dt = new Date(it.dt*1000);
+            const hr = dt.getHours();
+            const label = i===0 ? 'Now' : `${hr}` ;
+            return { t:label, temp: Math.round(it.main.temp), icon: mapIcon(it.weather?.[0]?.main) };
+          });
+        } else {
+          data.hourly = demoData.hourly;
+        }
+        render(data);
+      } catch(e){
+        console.error(e);
+        render(demoData);
+      }
     }
 
     function mapIcon(main){
       if(!main) return '☀️';
-      const m = main.toLowerCase();
+      const m = String(main).toLowerCase();
       if(m.includes('cloud')) return '⛅';
       if(m.includes('rain')||m.includes('drizzle')) return '🌧️';
       if(m.includes('snow')) return '❄️';
@@ -298,9 +380,11 @@
       return '☀️';
     }
 
-    // Optional: quick demo default city
-    // fetchWeather('Sacramento');
+    // default: render demo look so the page matches the image immediately.
+    fetchAndRender('Sacramento');
+
+    // optional: expose fetchAndRender to console for quick testing:
+    window.fetchAndRender = fetchAndRender;
   </script>
 </body>
 </html>
-<!-- ...existing code... -->
